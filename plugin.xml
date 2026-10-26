@@ -2,20 +2,51 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            id="plplus.formatter.source"
+            name="PL+ Source"
+            base-type="org.eclipse.core.runtime.text"
+            file-extensions="plp,pls,plsql"
+            priority="normal">
+      </content-type>
+   </extension>
+
+   <extension
          point="org.eclipse.ui.editors">
       <editor
+            id="plplus.formatter.editor"
             name="PL+ Source Editor"
-            extensions="plp,plsql,pls,sql"
             class="plplus.formatter.PlPlusEditor"
-            id="plplus.formatter.editor">
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            extensions="sql"
+            default="false">
+         <contentTypeBinding
+               contentTypeId="plplus.formatter.source">
+         </contentTypeBinding>
       </editor>
    </extension>
 
    <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="plplus.formatter.editorScope"
+            name="Editing PL+ Source"
+            parentId="org.eclipse.ui.textEditorScope">
+      </context>
+   </extension>
+
+   <extension
          point="org.eclipse.ui.commands">
+      <category
+            id="plplus.formatter.category"
+            name="PL+">
+      </category>
       <command
             id="plplus.formatter.format"
-            name="Format PL+ code">
+            categoryId="plplus.formatter.category"
+            name="Format PL+ Code"
+            description="Format the PL+ / PL/SQL source in the active editor">
       </command>
    </extension>
 
@@ -24,16 +55,43 @@
       <handler
             class="plplus.formatter.FormatHandler"
             commandId="plplus.formatter.format">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="plplus.formatter.editor">
+               </equals>
+            </with>
+         </activeWhen>
       </handler>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            sequence="M1+M2+F"
+            commandId="plplus.formatter.format"
+            contextId="plplus.formatter.editorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
    </extension>
 
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+            locationURI="popup:#TextEditorContext?after=additions">
          <command
                commandId="plplus.formatter.format"
                style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="plplus.formatter.editor">
+                  </equals>
+               </with>
+            </visibleWhen>
          </command>
       </menuContribution>
    </extension>
@@ -52,12 +110,5 @@
       <initializer
             class="plplus.formatter.PreferenceInitializer">
       </initializer>
-   </extension>
-
-   <extension
-         point="org.eclipse.ui.startup">
-      <startup
-            class="plplus.formatter.PlPlusStartup">
-      </startup>
    </extension>
 </plugin>

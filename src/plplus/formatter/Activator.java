@@ -1,5 +1,7 @@
 package plplus.formatter;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -28,5 +30,11 @@ public class Activator extends AbstractUIPlugin {
 
     public static IPreferenceStore getPreferenceStoreInstance() {
         return getDefault() != null ? getDefault().getPreferenceStore() : null;
+    }
+
+    public static void log(String message, Throwable error) {
+        if (getDefault() != null) {
+            getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, message, error));
+        }
     }
 }
