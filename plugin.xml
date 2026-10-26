@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="PL+ Source Editor"
+            extensions="plp,plsql,pls,sql"
+            class="plplus.formatter.PlPlusEditor"
+            id="plplus.formatter.editor">
+      </editor>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="plplus.formatter.format"
+            name="Format PL+ code">
+      </command>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="plplus.formatter.FormatHandler"
+            commandId="plplus.formatter.format">
+      </handler>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="plplus.formatter.format"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="plplus.formatter.PlPlusPreferencePage"
+            id="plplus.formatter.preferencePage"
+            name="PL+ Formatter">
+      </page>
+   </extension>
+
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="plplus.formatter.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="plplus.formatter.PlPlusStartup">
+      </startup>
+   </extension>
+</plugin>
