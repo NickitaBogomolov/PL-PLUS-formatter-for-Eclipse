@@ -53,6 +53,47 @@
 4. Дождитесь сборки проекта.
 5. Запустите Eclipse Runtime для проверки.
 
+## Установка из открытого репозитория GitHub
+
+Поскольку проект находится в открытом репозитории на GitHub, у пользователя есть два стандартных варианта установки в Eclipse:
+
+### Вариант 1: Склонировать репозиторий и открыть в Eclipse
+1. Откройте GitHub и перейдите в репозиторий проекта.
+2. Нажмите `Code -> Download ZIP` или выполните:
+   ```bash
+   git clone https://github.com/<username>/<repository>.git
+   ```
+3. В Eclipse выберите:
+   - `File -> Import -> Existing Projects into Workspace`
+4. Укажите папку с клоном проекта.
+5. Дождитесь загрузки проекта.
+6. Для проверки запустите Eclipse Runtime (`Run -> Run As -> Eclipse Application`).
+
+### Вариант 2: Установить плагин из ZIP-архива GitHub
+1. На GitHub скачайте архив релиза или ZIP проекта.
+2. В Eclipse откройте:
+   - `Help -> Install New Software`
+3. Нажмите `Add...`.
+4. Выберите `Archive...`.
+5. Укажите скачанный архив `.zip`.
+6. Выберите плагин `PL+ Formatter`.
+7. Нажмите `Next`, затем `Install`.
+8. Перезапустите Eclipse.
+
+### Важно для открытого GitHub-репозитория
+- Eclipse не устанавливает плагины напрямую из GitHub-URL без архива или update-site.
+- Для обычных пользователей самый простой путь — скачать ZIP из репозитория и установить через `Help -> Install New Software -> Add -> Archive`.
+- Для разработчиков — клонировать репозиторий и открыть проект в Eclipse как Plug-in Project.
+
+## Установка в Eclipse (короткая инструкция)
+1. Скачайте ZIP с репозитория GitHub или выполните `git clone`.
+2. Откройте проект в Eclipse.
+3. Убедитесь, что установлен `Eclipse Plug-in Development`.
+4. Соберите плагин через:
+   - `File -> Export -> Plug-in Development -> Deployable plug-ins and fragments`
+5. Установите полученный архив через `Help -> Install New Software`.
+6. Перезапустите Eclipse.
+
 ## Использование
 После установки плагина:
 1. Откройте файл `*.plp` (или `*.plsql`, `*.pls`, `*.sql`).
